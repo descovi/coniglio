@@ -6,7 +6,7 @@ class Coniglio
     tot = 120
     tot.times do |second|
       sleep 1
-      puts ChronicDuration.output(d - x)
+      puts ChronicDuration.output(tot - second)
     end
     p 'arrivato'
   end
