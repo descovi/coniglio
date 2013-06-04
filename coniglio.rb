@@ -2,12 +2,15 @@ require 'chronic_duration'
 class Coniglio
 
 
-  def run minutes=25
+  def run _minutes, _task=""
   	p 'Il Coniglio corre di brutto'
     p Time.now
+    @task = _task
+    if _minutes.nil? or _minutes.empty?
+      _minutes = 25
+      count_minutes _minutes.to_i
+    end
 
-    count_minutes minutes.to_i
-    #25
     save_chronichles
   end
 
@@ -17,7 +20,8 @@ class Coniglio
     tot = minutes * 60
     tot.times do |second|
       sleep 1
-      p ChronicDuration.output(tot - second)
+      time_output = ChronicDuration.output(tot - second, format: :micro)
+      p "#{time_output} #{@task}"
     end
     pid = fork{ exec 'afplay', 'test.mp3' }
     p pid.inspect
