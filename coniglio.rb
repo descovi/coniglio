@@ -8,8 +8,8 @@ class Coniglio
     @task = _task
     if _minutes.nil? or _minutes.empty?
       _minutes = 25
-      count_minutes _minutes.to_i
     end
+    count_minutes _minutes.to_i
 
     save_chronichles
   end
