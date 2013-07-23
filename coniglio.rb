@@ -1,22 +1,27 @@
 require 'chronic_duration'
 require 'ruby-growl'
 
+require './bank'
 class Coniglio
 
   def run _minutes, _task=""
+    Bank.save_chronichles _task, "\n#{Time.now}\nvolevi fare: "
 
-  	p 'Il Coniglio corre di brutto'
-    p Time.now
+    p 'Il Coniglio corre di brutto'
+
     @task = _task
-    if _minutes.nil? or _minutes.empty?
+
+    if _minutes.nil? or _minutes.empty? or _minutes.to_i == 0
       _minutes = 25
     end
     count_minutes _minutes.to_i
 
-    save_chronichles
+    p 'Coniglio spiattellato, che hai fatto?'
+
+    Bank.save_chronichles gets.chomp, 'hai fatto: '
   end
 
-  private
+
 
   def count_minutes minutes
     tot = minutes * 60
@@ -36,14 +41,5 @@ class Coniglio
     p pid.inspect
   end
 
-  def save_chronichles
-    p Time.now
-    p 'Coniglio spiattellato, che hai fatto?'
-    a = gets.chomp
-
-    File.open('relation.md', 'a') { |file| file.puts(a) }
-    fork{ exec 'afplay', 'test.mp3' }
-    fork{ exec 'open', 'relation.md' }
-  end
 end
 
