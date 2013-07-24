@@ -27,7 +27,7 @@ class Coniglio
 
   def counting tot, task
     growl = Growl.new "localhost", "ruby-growl"
-    1.times do |second|
+    tot.times do |second|
       sleep 1
       handle_growl_output tot, second, growl, task
     end
